@@ -24,8 +24,8 @@ public class Main
         System.out.print("Enter pathway to the Employee.txt file, if you enter an incorrect path the system will tell you and then" +
                 "it will terminate. Also make sure your data, if you have any, is separated by a - otherwise it will not read it: \n");
 
-       // String input = scanner.nextLine().trim();
-        String input = "D:\\DMStests\\employees.rtf"; //This was just used to streamline my testing
+        String input = scanner.nextLine().trim();
+        //String input = "D:\\DMStests\\employees.rtf"; //This was just used to streamline my testing
 
         //Verifying correct input to allow program to proceed
         if(input.isEmpty())
