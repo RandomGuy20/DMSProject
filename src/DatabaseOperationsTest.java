@@ -66,6 +66,7 @@ class DatabaseOperationsTest
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
 
+        databaseOps = new DatabaseOperations(fileOps);
         databaseOps.ReadAll();
 
         String output = out.toString();
