@@ -22,6 +22,22 @@ class DatabaseOperationsTest
         employees.add(new Employee(3,"lastNameThree","firstNameThree","testJobTitleThree","testLocationThree",1));
         employees.add(new Employee(4,"lastNameFour","firstNameFour","testJobTitleFour","testLocationFour",1));
         employees.add(new Employee(5,"lastNameFive","firstNameFive","testJobTitleFive","testLocationFive",1));
+        employees.add(new Employee(6,"lastNameSix","firstNameSix","testJobTitleSix","testLocationSix",1));
+        employees.add(new Employee(7,"lastNameSeven","firstNameSeven","testJobTitleSeven","testLocationSeven",1));
+        employees.add(new Employee(8,"lastNameEight","firstNameEight","testJobTitleEight","testLocationEight",1));
+        employees.add(new Employee(9,"lastNameNine","firstNameNine","testJobTitleNine","testLocationNine",1));
+        employees.add(new Employee(10,"lastNameTen","firstNameTen","testJobTitleTen","testLocationTen",1));
+        employees.add(new Employee(11,"lastNameEleven","firstNameEleven","testJobTitleEleven","testLocationEleven",1));
+        employees.add(new Employee(12,"lastNameTwelve","firstNameTwelve","testJobTitleTwelve","testLocationTwelve",1));
+        employees.add(new Employee(13,"lastNameThirteen","firstNameThirteen","testJobTitleThirteen","testLocationThirteen",1));
+        employees.add(new Employee(14,"lastNameFourteen","firstNameFourteen","testJobTitleFourteen","testLocationFourteen",1));
+        employees.add(new Employee(15,"lastNameFifteen","firstNameFifteen","testJobTitleFifteen","testLocationFifteen",1));
+        employees.add(new Employee(16,"lastNameSixteen","firstNameSixteen","testJobTitleSixteen","testLocationSixteen",1));
+        employees.add(new Employee(17,"lastNameSeventeen","firstNameSeventeen","testJobTitleSeventeen","testLocationSeventeen",1));
+        employees.add(new Employee(18,"lastNameEighteen","firstNameEighteen","testJobTitleEighteen","testLocationEighteen",1));
+        employees.add(new Employee(19,"lastNameNineteen","firstNameNineteen","testJobTitleNineteen","testLocationNineteen",1));
+        employees.add(new Employee(20,"lastNameTwenty","firstNameTwenty","testJobTitleTwenty","testLocationTwenty",1));
+
 
         fileOps.WriteAll(employees);
     }
