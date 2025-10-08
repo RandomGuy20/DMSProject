@@ -61,7 +61,7 @@ public class DatabaseOperations
             }
 
             System.out.println("Incorrect formatting, you need to enter only letters and white spaces");
-            _scanner.nextLine();
+//            _scanner.nextLine();
         }
     }
 
@@ -186,8 +186,7 @@ public class DatabaseOperations
                     PrintSortedEmployees(sortedEmployees);
                     break;
                 case 3:
-                    isRunning = false;
-                    break;
+                    return;
             }
         }
     }

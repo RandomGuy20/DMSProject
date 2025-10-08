@@ -88,7 +88,6 @@ public class FileOperations
     //Completely overwrite the file with the employees parameter
     public void WriteAll(ArrayList<Employee> employees)
     {
-
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(_fileLocation)))
         {
             for(Employee employee : employees)
