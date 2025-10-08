@@ -45,7 +45,7 @@ class DatabaseOperationsTest
     @org.junit.jupiter.api.Test
     void addEmployee()
     {
-        String emp = "6\n" +
+        String emp = "21\n" +
                 "AddEmployeeLast\n" +
                 "AddEmployeeFirst\n" +
                 "addJobTitle\n" +
