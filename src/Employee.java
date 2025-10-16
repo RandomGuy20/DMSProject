@@ -19,7 +19,7 @@ public class Employee
 
 
     //<editor-fold desc="Props">
-    public int GetIdNumber()
+    public Integer GetIdNumber()
     {
         return _idNumber;
     }

@@ -65,6 +65,12 @@ public class DatabaseOperations
         }
     }
 
+    //New helper method to make sure string data is correctly entered
+    public  boolean EmployeeStringDataIsCorrectlyFormatted(String data)
+    {
+        return (data.chars().allMatch(ch -> Character.isLetter(ch) || Character.isWhitespace(ch)));
+    }
+
     //helper method to get the salary
     private double GetEmployeeSalary(String burgerPhrase)
     {
@@ -82,6 +88,21 @@ public class DatabaseOperations
                 System.out.println("Incorrect formatting, you need to enter only numbers, commas, and dots");
                 _scanner.nextLine();
             }
+        }
+    }
+
+    //New version to get salary
+    public double VerifySalaryIsDoubles(String data)
+    {
+        String salary = data.trim().replace(",","");
+
+        try
+        {
+            return Double.parseDouble(salary);
+        }
+        catch(Exception e)
+        {
+            return -1;
         }
     }
 
@@ -161,8 +182,15 @@ public class DatabaseOperations
             System.out.println(employee.toString());
     }
 
+    public ArrayList<Employee> GetAllEmployees()
+    {
+        return _employees;
+    }
+
+    //Was used for Burger Menu, will not be using going forward
     public void SortEmployees()
     {
+
         boolean isRunning = true;
         String sortText;
         ArrayList<Employee> sortedEmployees;
@@ -189,6 +217,36 @@ public class DatabaseOperations
                     return;
             }
         }
+    }
+
+    public ArrayList<Employee> SortEmployees(String searchParams , Boolean isLocation)
+    {
+        if (isLocation)
+            return SortLocation(searchParams);
+        else
+            return SortPosition(searchParams);
+    }
+
+    public Boolean UpdateEmployee(Employee employee)
+    {
+
+        for(Employee emp : _employees)
+        {
+            if (emp.GetIdNumber() == employee.GetIdNumber())
+            {
+                emp.SetFirstName(employee.GetFirstName());
+                emp.SetLastName(employee.GetLastName());
+                emp.SetJobTitle(employee.GetJobTitle());
+                emp.SetSalary(employee.GetSalary());
+                emp.SetLocation(employee.GetLocation());
+                _fileOperations.WriteAll(_employees);
+
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
     public void UpdateEmployee()
