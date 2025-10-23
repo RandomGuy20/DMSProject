@@ -153,7 +153,7 @@ public class FileOperations
     public void WriteAll(ArrayList<Employee> employees)
     {
 
-        String deleteAll = "DELETE FROM Employees";
+        String deleteAll = "DELETE FROM employees";
         String insertAll = "INSERT INTO Employees (Id, FirstName, LastName, JobTitle, Location, Salary) VALUES (?, ?, ?, ?, ?, ?)";
 
         try

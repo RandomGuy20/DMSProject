@@ -52,6 +52,7 @@ public class UserInterface extends JFrame
     JButton saveUserButton;
     JButton clearUserButton;
     String[] employeeDatalabels;
+    JButton deleteUserButton;
 
 
     /**
@@ -221,8 +222,8 @@ public class UserInterface extends JFrame
 
 
 
-            if(employeeDatalabels[i].equalsIgnoreCase("id"))
-                fields[i].setEditable(false);
+//            if(employeeDatalabels[i].equalsIgnoreCase("id"))
+//                fields[i].setEditable(false);
 
             gridBagConstraints.gridy++;
         }
@@ -244,6 +245,16 @@ public class UserInterface extends JFrame
         saveUserButton = new JButton("Save");
         saveUserButton.addActionListener(e -> UpdateUserInfo());
         leftPanel.add(saveUserButton,gridBagConstraints);
+
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy++;
+        gridBagConstraints.gridwidth = 1;
+        gridBagConstraints.anchor = GridBagConstraints.CENTER;
+
+        deleteUserButton = new JButton("Delete User");
+        deleteUserButton.addActionListener(e -> DeleteUser());
+        leftPanel.add(deleteUserButton,gridBagConstraints);
 
 
         add(leftPanel, BorderLayout.WEST);
@@ -283,6 +294,7 @@ public class UserInterface extends JFrame
     {
 
         tableMOdel.setRowCount(0);
+        employees.sort((id1,id2) -> Integer.compare(id1.GetIdNumber(), id2.GetIdNumber()));
 
         for (Employee employee : employees)
         {
@@ -310,67 +322,102 @@ public class UserInterface extends JFrame
             return;
         }
 
+        if (fields[0].getText().isEmpty() || !fields[0].getText().matches("\\d+"))
+        {
+            FlashWarningMessage("Please enter a valid ID");
+            return;
+        }
+
+        if(!databaseOperations.EmployeeExists(Integer.parseInt(fields[0].getText())) && !fields[0].getText().isEmpty())
+        {
+            editingEmployee = new Employee(Integer.parseInt(fields[0].getText()),"","","","",0);
+        }
+
         if(editingEmployee == null)
         {
             FlashWarningMessage("You need to select an employee");
             return;
         }
 
-        for (int i = 1; i < employeeDatalabels.length ; i++)
-        {
-            String alteredEmployeeData = fields[i].getText();
-
-            if (alteredEmployeeData.isEmpty() )
+//        if(databaseOperations.EmployeeExists(Integer.parseInt(fields[0].getText())))
+//        {
+            for (int i = 1; i < employeeDatalabels.length ; i++)
             {
-                FlashWarningMessage("You need to Enter correctly formatted data for: " + employeeDatalabels[i]);
-                return;
-            }
+                String alteredEmployeeData = fields[i].getText();
 
-
-            if(i < 5)
-            {
-                if(!databaseOperations.EmployeeStringDataIsCorrectlyFormatted(alteredEmployeeData))
+                if (alteredEmployeeData.isEmpty() )
                 {
                     FlashWarningMessage("You need to Enter correctly formatted data for: " + employeeDatalabels[i]);
                     return;
                 }
-            }
-            else
-            {
-                try
+
+
+                if(i < 5)
                 {
-                    if(databaseOperations.VerifySalaryIsDoubles(fields[5].getText()) < 0)
+                    if(!databaseOperations.EmployeeStringDataIsCorrectlyFormatted(alteredEmployeeData))
                     {
                         FlashWarningMessage("You need to Enter correctly formatted data for: " + employeeDatalabels[i]);
                         return;
                     }
                 }
-                catch (Exception e)
+                else
                 {
-                    FlashWarningMessage("You need to Enter correctly formatted data for: " + employeeDatalabels[i]);
-                    return;
+                    try
+                    {
+                        if(databaseOperations.VerifySalaryIsDoubles(fields[5].getText()) < 0)
+                        {
+                            FlashWarningMessage("You need to Enter correctly formatted data for: " + employeeDatalabels[i]);
+                            return;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        FlashWarningMessage("You need to Enter correctly formatted data for: " + employeeDatalabels[i]);
+                        return;
+                    }
+
                 }
+
+
 
             }
 
+            editingEmployee.SetLastName(fields[1].getText());
+            editingEmployee.SetFirstName(fields[2].getText());
+            editingEmployee.SetLocation(fields[3].getText());
+            editingEmployee.SetJobTitle(fields[4].getText());
+            editingEmployee.SetSalary(Double.parseDouble(fields[5].getText()));
 
 
-        }
-
-        editingEmployee.SetLastName(fields[1].getText());
-        editingEmployee.SetFirstName(fields[2].getText());
-        editingEmployee.SetLocation(fields[3].getText());
-        editingEmployee.SetJobTitle(fields[4].getText());
-        editingEmployee.SetSalary(Double.parseDouble(fields[5].getText()));
-
-
-        if(!databaseOperations.UpdateEmployee(editingEmployee))
-            FlashWarningMessage("Employee update failed Clearing System");
-        else
-            FillCenterData(databaseOperations.GetAllEmployees());
+            if (!databaseOperations.EmployeeExists(Integer.parseInt(fields[0].getText())))
+            {
+                if(!databaseOperations.AddEmployee(editingEmployee))
+                    FlashWarningMessage("Employee addition failed Clearing System");
+                else
+                    FillCenterData(databaseOperations.GetAllEmployees());
 
 
-        ClearEditingEmployeeAndUpdateField();
+                ClearEditingEmployeeAndUpdateField();
+            }
+            else
+            {
+                if(!databaseOperations.UpdateEmployee(editingEmployee))
+                    FlashWarningMessage("Employee update failed Clearing System");
+                else
+                    FillCenterData(databaseOperations.GetAllEmployees());
+
+
+                ClearEditingEmployeeAndUpdateField();
+            }
+
+
+//        }
+//        else
+//        {
+//
+//        }
+
+
 
     }
 
@@ -403,6 +450,9 @@ public class UserInterface extends JFrame
 
         for (int i = 0; i < fields.length; i++)
             fields[i].setText("");
+
+        if(fields[0].getText().isEmpty())
+            fields[0].setEditable(true);
     }
 
     /**
@@ -419,6 +469,8 @@ public class UserInterface extends JFrame
         fields[3].setText(editingEmployee.GetJobTitle());
         fields[4].setText(editingEmployee.GetLocation());
         fields[5].setText(String.valueOf(editingEmployee.GetSalary()));
+
+        fields[0].setEditable(fields[0].getText().isEmpty());
     }
 
     /**
@@ -476,7 +528,38 @@ public class UserInterface extends JFrame
             FillCenterData(databaseOperations.GetAllEmployees());
     }
 
+    /**
+     * This will delete the currently selected user
+     */
+    private void DeleteUser()
+    {
 
+        if(!systemHasValidFileLocation)
+        {
+            FlashWarningMessage("No File exists at the supplied pathway");
+            return;
+        }
+        if (fields[0].getText().isEmpty())
+        {
+            FlashWarningMessage("There is no Employee to delete");
+        }
+        else
+        {
+            if(!databaseOperations.DeleteEmployee(Integer.parseInt(fields[0].getText())))
+            {
+                FlashWarningMessage("Employee deletion failed");
+                ClearUserInfo();
+            }
+            else
+            {
+                FillCenterData(databaseOperations.GetAllEmployees());
+                ClearUserInfo();
+            }
+
+
+
+        }
+    }
 
 
 

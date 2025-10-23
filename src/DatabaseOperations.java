@@ -26,7 +26,7 @@ public class DatabaseOperations
    //<editor-fold desc="Private Methods">
 
     //Verify an employee object exists
-    private Boolean EmployeeExists(int input)
+    public Boolean EmployeeExists(int input)
     {
         return _employees.stream().anyMatch(id -> id.GetIdNumber() == input);
     }
@@ -154,27 +154,36 @@ public class DatabaseOperations
 
 
     //<editor-fold desc="Public Methods -> These are the exposed methods to update the database with VRUD operations, and the special operation">
-    ///Was used for Burger Menu, will not be using going forward
-    public void AddEmployee()
+
+
+    /**
+     * is used to add an employee into the database
+     * @param employee the employee we want to add
+     */
+    public boolean AddEmployee(Employee employee)
     {
         ReSetEmployeeList();
-        int employeeID = GetEmployeeID("Please Enter Employee ID");
-        if(EmployeeExists(employeeID))
-        {
-            System.out.println("Employee already exists exiting....");
-            return;
-        }
-        String employeeFirstName = GetEmployeeStringData("Please Enter Employee First Name: ");
-        String employeeLastName = GetEmployeeStringData("Please Enter Employee Last name:  ");
-        String employeePosition = GetEmployeeStringData("Please Enter Employee Position: ");
-        String employeeLocation = GetEmployeeStringData("Please Enter Employee Location: ");
-        double employeeSalary = GetEmployeeSalary("Please Enter Employee Salary: ");
+        boolean isAdded = false;
 
-        Employee employee = new Employee(employeeID, employeeFirstName, employeeLastName, employeePosition, employeeLocation, employeeSalary);
+//        int employeeID = GetEmployeeID("Please Enter Employee ID");
+//        if(EmployeeExists(employeeID))
+//        {
+//            System.out.println("Employee already exists exiting....");
+//            return;
+//        }
+//        String employeeFirstName = GetEmployeeStringData("Please Enter Employee First Name: ");
+//        String employeeLastName = GetEmployeeStringData("Please Enter Employee Last name:  ");
+//        String employeePosition = GetEmployeeStringData("Please Enter Employee Position: ");
+//        String employeeLocation = GetEmployeeStringData("Please Enter Employee Location: ");
+//        double employeeSalary = GetEmployeeSalary("Please Enter Employee Salary: ");
+//
+//        Employee employee = new Employee(employeeID, employeeFirstName, employeeLastName, employeePosition, employeeLocation, employeeSalary);
         _employees.add(employee);
-        System.out.println("You added: " + employee);
         _fileOperations.WriteAll(_employees);
         ReSetEmployeeList();
+        isAdded = true;
+
+        return isAdded;
     }
 
     ///Was used for Burger Menu, will not be using going forward
@@ -339,41 +348,69 @@ public class DatabaseOperations
         }
     }
 
-    ///Was used for Burger Menu, will not be using going forward
-    public boolean DeleteEmployee()
+
+    /**
+     * Deletes teh employee from the database
+     * @param id the id of the employee we are going to delete
+     * @return
+     */
+    public boolean DeleteEmployee(int id)
     {
 
-        boolean successful = false;
+        boolean isDeleted = false;
 
-        while (!successful)
+        if(!EmployeeExists(id))
         {
-            int input = GetEmployeeID("Enter the employees Id you want to delete: \n");
-
-            if(!EmployeeExists(input))
-            {
-                System.out.println("No Such employee exists, exiting...");
-                break;
-            }
-            else
-            {
-                int index = GetEmployeeByIdNumber(input);
-                if(index > -1)
-                {
-                    _employees.remove(index);
-                    _fileOperations.WriteAll(_employees);
-                    ReSetEmployeeList();
-                    System.out.println("Succesfully deleted employee ID:" + input);
-                    successful = true;
-                }
-
-
-
-
-            }
-
+           return isDeleted;
         }
 
-        return false;
+        int index = GetEmployeeByIdNumber(id);
+
+        if(index > -1)
+        {
+            _employees.remove(index);
+            _fileOperations.WriteAll(_employees);
+            ReSetEmployeeList();
+            isDeleted = true;
+            return isDeleted;
+        }
+
+        return isDeleted;
+
+
+
+//        boolean successful = false;
+//
+//        while (!successful)
+//        {
+//            int input = GetEmployeeID("Enter the employees Id you want to delete: \n");
+//
+//            if(!EmployeeExists(input))
+//            {
+//                System.out.println("No Such employee exists, exiting...");
+//                break;
+//            }
+//            else
+//            {
+//                int index = GetEmployeeByIdNumber(input);
+//                if(index > -1)
+//                {
+//                    _employees.remove(index);
+//                    _fileOperations.WriteAll(_employees);
+//                    ReSetEmployeeList();
+//                    System.out.println("Succesfully deleted employee ID:" + input);
+//                    successful = true;
+//                }
+//
+//
+//
+//
+//            }
+//
+//        }
+//
+//        return false;
+//    }
     }
     //</editor-fold>
 }
