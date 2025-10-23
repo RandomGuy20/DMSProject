@@ -54,7 +54,9 @@ public class UserInterface extends JFrame
     String[] employeeDatalabels;
 
 
-    //Constructor to build the UI
+    /**
+     * Constructor to build the UI
+     */
     public UserInterface()
     {
         setTitle("Employee Database management System");
@@ -249,7 +251,9 @@ public class UserInterface extends JFrame
 
     }
 
-    // verifies File path and instantiates the fileOperations and databaseOperations instances.
+    /**
+     * verifies File path and instantiates the fileOperations and databaseOperations instances
+     */
     private void GetFilePathData()
     {
         String filePathText =  filePathField.getText();
@@ -271,7 +275,10 @@ public class UserInterface extends JFrame
         }
     }
 
-    //Helper Method to fill the Center Data Field
+    /**
+     * Helper Method to fill the Center Data Field
+     * @param employees Pass in the Array that is going to populate the CenterData
+     */
     private void FillCenterData(ArrayList<Employee> employees)
     {
 
@@ -292,7 +299,9 @@ public class UserInterface extends JFrame
         };
     }
 
-    //Updates the selected Users data, then clears the Data fields
+    /**
+     * Updates the selected Users data, then clears the Data fields
+     */
     private void UpdateUserInfo()
     {
         if(!systemHasValidFileLocation)
@@ -365,7 +374,9 @@ public class UserInterface extends JFrame
 
     }
 
-    //Extra helper method to clear user data and error check
+    /**
+     * Extra helper method to clear user data and error check
+     */
     private void ClearUserInfo()
     {
         if(!systemHasValidFileLocation)
@@ -383,7 +394,9 @@ public class UserInterface extends JFrame
         ClearEditingEmployeeAndUpdateField();
     }
 
-    //Clear out editing Employee obj, and set Text to empty in JFields
+    /**
+     * Clear out editing Employee obj, and set Text to empty in JFields
+     */
     private void ClearEditingEmployeeAndUpdateField()
     {
         editingEmployee = null;
@@ -392,7 +405,10 @@ public class UserInterface extends JFrame
             fields[i].setText("");
     }
 
-    //Populates the Jpanels for user editing
+    /**
+     * Populates the Jpanels for user editing
+     * @param employee this is the employee that we want to populate the eidting Pane with
+     */
     private void PopulateEditPane(Employee employee)
     {
         editingEmployee = employee;
@@ -405,7 +421,10 @@ public class UserInterface extends JFrame
         fields[5].setText(String.valueOf(editingEmployee.GetSalary()));
     }
 
-    // Flash warning message when incorrect formatted data
+    /**
+     * Flash warning message when incorrect formatted data
+     * @param message This is teh message you want displayed
+     */
     private void FlashWarningMessage(String message)
     {
         JOptionPane.showMessageDialog(
@@ -414,7 +433,9 @@ public class UserInterface extends JFrame
         );
     }
 
-    //Serahces based on criteria supplied
+    /**
+     * Searches based on criteria selected
+     */
     private void SearchButtonPress()
     {
 
@@ -444,7 +465,9 @@ public class UserInterface extends JFrame
 
     }
 
-    //Lets user go back to seeing all employees
+    /**
+     * Lets user return to seeing all employees
+     */
     private void SeeAllButtonPress()
     {
         if(!systemHasValidFileLocation)

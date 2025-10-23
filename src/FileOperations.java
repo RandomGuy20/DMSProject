@@ -18,6 +18,11 @@ public class FileOperations
     //</editor-fold>
 
     //<editor-fold desc="Constructor">
+
+    /**
+     * Constructor, to create the instance of this class
+     * @param fileLocation The location of the file
+     */
     public FileOperations (String fileLocation)
     {
         //_fileLocation = fileLocation;
@@ -28,7 +33,10 @@ public class FileOperations
     //</editor-fold>
 
     //<editor-fold desc="Private Methods">
-    //Reading file to ArrayList
+
+    /**
+     * Reading the file to and Array list
+     */
     private void ReadToArrayList()
     {
         Employee employee;
@@ -93,7 +101,11 @@ public class FileOperations
 //        }
     }
 
-    //Get the employee fields
+    /**
+     * Getting employee fields *********************Not in use for GUI version
+     * @param fileLine
+     * @return
+     */
     private Employee TryGetEmployeeFields(String fileLine)
     {
         String[] _fields =  fileLine.split("-");
@@ -122,7 +134,10 @@ public class FileOperations
 
     //<editor-fold desc="Public Methods">
 
-    //Returns an arrayList of all employee objects
+    /**
+     * Returns an arrayList of all employee objects
+     * @return data after building list
+     */
     public ArrayList<Employee> GetEmployees()
     {
         ReadToArrayList();
@@ -130,7 +145,11 @@ public class FileOperations
     }
 
     //Completely overwrite the file with the employees parameter
-    //Updateing for Database vs file based ops
+
+    /**
+     * Updating for Database vs file based ops
+     * @param employees pass in the new and updated List that needs to be destructured and written into the databse
+     */
     public void WriteAll(ArrayList<Employee> employees)
     {
 

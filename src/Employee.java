@@ -1,3 +1,6 @@
+/**
+ * This is th Employee object that the data will be structured and destructured into
+ */
 public class Employee
 {
 
@@ -74,7 +77,9 @@ public class Employee
         _lastName = newLastName;
     }
 
-    public void SetFirstName(String newFirstName)
+    public void
+
+    SetFirstName(String newFirstName)
     {
         _firstName = newFirstName;
     }

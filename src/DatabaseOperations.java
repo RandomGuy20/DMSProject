@@ -154,6 +154,7 @@ public class DatabaseOperations
 
 
     //<editor-fold desc="Public Methods -> These are the exposed methods to update the database with VRUD operations, and the special operation">
+    ///Was used for Burger Menu, will not be using going forward
     public void AddEmployee()
     {
         ReSetEmployeeList();
@@ -176,6 +177,7 @@ public class DatabaseOperations
         ReSetEmployeeList();
     }
 
+    ///Was used for Burger Menu, will not be using going forward
     public void ReadAll()
     {
         for(Employee employee : _employees)
@@ -187,7 +189,7 @@ public class DatabaseOperations
         return _employees;
     }
 
-    //Was used for Burger Menu, will not be using going forward
+    ///Was used for Burger Menu, will not be using going forward
     public void SortEmployees()
     {
 
@@ -219,6 +221,12 @@ public class DatabaseOperations
         }
     }
 
+    /**
+     * This sort via location or position
+     * @param searchParams the data inside of teh JtextField for search purposes
+     * @param isLocation Flag to let method know if it is location or position
+     * @return True on success false on Failure
+     */
     public ArrayList<Employee> SortEmployees(String searchParams , Boolean isLocation)
     {
         if (isLocation)
@@ -227,7 +235,11 @@ public class DatabaseOperations
             return SortPosition(searchParams);
     }
 
-    //Altered for Db Operations
+    /**
+     * Altered for Db Operations This will tell FileOps to Write the new data into the database
+     * @param employee the employee we want to update
+     * @return true on success, false on failure
+     */
     public Boolean UpdateEmployee(Employee employee)
     {
 
@@ -250,6 +262,7 @@ public class DatabaseOperations
 
     }
 
+    ///Was used for Burger Menu, will not be using going forward
     public void UpdateEmployee()
     {
         boolean isupdated = false;
@@ -326,6 +339,7 @@ public class DatabaseOperations
         }
     }
 
+    ///Was used for Burger Menu, will not be using going forward
     public boolean DeleteEmployee()
     {
 
