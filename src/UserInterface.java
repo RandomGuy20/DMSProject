@@ -4,6 +4,7 @@ import java.awt.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.sql.*;
 
 
 /// Do List
@@ -21,6 +22,7 @@ public class UserInterface extends JFrame
 {
     FileOperations fileOperations;
     DatabaseOperations databaseOperations;
+    ArrayList<Employee> employees;
 
     JTextField filePathField ;
     JButton getFilePathButton;
@@ -247,15 +249,9 @@ public class UserInterface extends JFrame
 
     }
 
-
-
-
-
     // verifies File path and instantiates the fileOperations and databaseOperations instances.
     private void GetFilePathData()
     {
-
-
         String filePathText =  filePathField.getText();
         if(filePathText.isEmpty())
             FlashWarningMessage("You need to put in a valid file path");
@@ -266,6 +262,7 @@ public class UserInterface extends JFrame
             fileOperations = new FileOperations(filePathText);
             databaseOperations = new DatabaseOperations(fileOperations);
 
+
             FillCenterData(databaseOperations.GetAllEmployees());
         }
         else
@@ -273,7 +270,6 @@ public class UserInterface extends JFrame
             FlashWarningMessage("No File exists at the supplied pathway");
         }
     }
-
 
     //Helper Method to fill the Center Data Field
     private void FillCenterData(ArrayList<Employee> employees)
@@ -369,7 +365,6 @@ public class UserInterface extends JFrame
 
     }
 
-
     //Extra helper method to clear user data and error check
     private void ClearUserInfo()
     {
@@ -388,7 +383,7 @@ public class UserInterface extends JFrame
         ClearEditingEmployeeAndUpdateField();
     }
 
-    //Clear out eitingEmployee obj, and set Text to empty in JFields
+    //Clear out editing Employee obj, and set Text to empty in JFields
     private void ClearEditingEmployeeAndUpdateField()
     {
         editingEmployee = null;
@@ -396,7 +391,6 @@ public class UserInterface extends JFrame
         for (int i = 0; i < fields.length; i++)
             fields[i].setText("");
     }
-
 
     //Populates the Jpanels for user editing
     private void PopulateEditPane(Employee employee)
@@ -449,7 +443,6 @@ public class UserInterface extends JFrame
 
 
     }
-
 
     //Lets user go back to seeing all employees
     private void SeeAllButtonPress()

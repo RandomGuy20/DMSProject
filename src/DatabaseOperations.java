@@ -227,6 +227,7 @@ public class DatabaseOperations
             return SortPosition(searchParams);
     }
 
+    //Altered for Db Operations
     public Boolean UpdateEmployee(Employee employee)
     {
 
